@@ -121,3 +121,23 @@ _ZN7android10AudioTrackC1E19audio_stream_type_tj14audio_format_t20audio_channel_
 #endif
 
 }  // namespace android
+
+#include <utils/Errors.h>
+#include <system/audio.h>
+#include <log/log.h>
+
+// Forward-declare EXACTLY as a class in the right namespace
+namespace android { namespace media { namespace audio { namespace common {
+    class AudioPort;
+}}}}
+
+// Stub for missing QXR symbol
+extern "C" android::status_t
+_ZN7android11AudioSystem24setDeviceConnectionStateE24audio_policy_dev_state_tRKNS_5media5audio6common9AudioPortE14audio_format_t(
+    audio_policy_dev_state_t /*state*/,
+    const android::media::audio::common::AudioPort& /*port*/,
+    audio_format_t /*format*/
+) {
+    ALOGW("libaudioclient_shim: stubbed setDeviceConnectionState called");
+    return android::NO_ERROR;
+}
